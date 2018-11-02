@@ -3,3 +3,24 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+.myfieldpos {
+	position: relative;
+}
+
+
+.myfield .myfield {
+  float: left;
+  width: 50%;
+  padding: 0 1em;
+}
+
+fieldset .myfield:nth-child(even) {
+  clear: left;
+}
+
+form > p {
+  padding: 1em;
+}
+

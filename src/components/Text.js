@@ -6,7 +6,7 @@ import { textRequest} from '../actions'
 const Text = ({ text , dispatch }) => {
   let input
   return (
-    <div style={{position:'absolute', margin: 15}}>
+    <div>
       <form
         onSubmit={e => {
           e.preventDefault()

@@ -57,18 +57,17 @@ export function requestPosts(text) {
 //  }
 //}
 
-export function textRequest(text) {	
-	console.log("Pasandoooo"+text);
+export function textRequest(concept, text) {	
+	console.log("Pasandoooo");
+	console.log(text);
 	return (dispatch,getstate) => { 
-		return fetch('http://192.168.56.1:4000/', {
+		return fetch('http://192.168.56.1:4000/api/v/'+concept, {
 		      method: 'post',
 			  headers: {
 			    'Accept': 'application/json, text/plain, */*',
 			    'Content-Type': 'application/json'
 			  },
-		      body: JSON.stringify({
-		        "text": text
-		      }),
+		      body: JSON.stringify(text),
 	    }).then(response => response.json())
     		.then(jsondata => {
 		    	console.log(jsondata);

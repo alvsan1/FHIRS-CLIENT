@@ -18,6 +18,7 @@ export default function configureStore() {
   );
 }
 
+
 //const initialState = { text: "Vacio" };
 /*const store = createStore(
   todoApp

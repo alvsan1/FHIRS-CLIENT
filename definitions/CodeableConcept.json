@@ -1,0 +1,1 @@
+{"properties":{"coding":{"$ref":"#/definitions/Coding","title":"Coding"},"text":{"type":"string"}},"definitions":{"Coding":{"properties":{"version":{"type":"string"},"code":{"type":"string"},"display":{"type":"string"},"userSelected":{"type":"boolean"}},"title":"Coding","type":"object"}},"title":"CodeableConcept","type":"object"}

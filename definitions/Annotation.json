@@ -1,0 +1,1 @@
+{"properties":{"time":{"type":"string","format":"date"},"text":{"type":"string"}},"title":"Annotation","type":"object"}
