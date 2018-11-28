@@ -2,11 +2,12 @@
 import React from "react";
 import { render } from 'react-dom'
 import Form from "react-jsonschema-form";
-import { AsyncTypeaheadField } from "react-jsonschema-form-extras/lib/TypeaheadField";
-import { textRequest} from '../actions';
-
+//import { AsyncTypeaheadField } from "react-jsonschema-form-extras/lib/TypeaheadField";
+import { textRequest, requestAutoComplete} from '../actions';
+import fetch from 'cross-fetch'
 import LayoutField from "react-jsonschema-form-layout-grid";
-
+//import {asyncTypeahead} from "react-jsonschema-form-extras";
+import fields from "react-jsonschema-form-extras";
 //import { getConceptSchema } from '../util/Transformers';
 
 const log = (type) => console.log.bind(console, type);
@@ -14,6 +15,7 @@ const log = (type) => console.log.bind(console, type);
 const SchemaForm = ({ text , dispatch }) => {
 //console.log(this)
   let uri = document.getElementById('root').baseURI;
+  //let pepe = new AsyncTypeaheadField({ isLoading: false});
   //let propertiesForm = { title: {type: "string", title: "Title", default: "A new task"},
           //text: {type: "string", title: "Text", default: "A new text"},
           //done: {type: "boolean", title: "Done?", default: false}
@@ -99,27 +101,19 @@ const uiSchema = {
 
 //const uiSchema = {}
 
+//search: (url, query) => fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
+  
 
-  const uiSchema = {
-    /*request:{"ui:field": "typeahead",
-  "typeahead": {
-     "options": [
-  {
-    "name": "Adventures of Huckleberry Finn", "author": "Mark Twain"
-  },
-  {
-    "name": "The Adventures of Tom Sawyer", "author": "Mark Twain"
-  }
-],
-     "labelKey": "name",
-     "mapping": "name"
-   }},*/
+
+
+//////////////// Before  //////////////////////////////////
+/*  const uiSchema = {
     request: {"ui:field": "asyncTypeahead",
       "asyncTypeahead": {
         "url": "http://192.168.56.1:4000/api/v/specimen?select={id:1}",
-        search: (url, query) => fetch(`${url}?name=${query}&maxSize=1`)
+        search: (url, query) => fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
       },
-      "labelKey": "_id"
+      "labelKey": "id"
     },
     status: {
       classNames: "col-md-6"
@@ -157,6 +151,103 @@ const uiSchema = {
     }
   };
 
+  
+
+  const uiSchema = {
+    request: {"ui:field": "asyncTypeahead",
+      "asyncTypeahead": {
+        "url": "http://192.168.56.1:4000/api/v/specimen?select={id:1}",
+        isLoading: true,
+        search: (url, query) => fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
+          .then(resp => resp.json())
+          .then(json => this.setState({
+            isLoading: false,
+            options: JSON.stringify(json) 
+        })),
+        labelKey: "_id"
+      }      
+    }    
+  };
+
+
+
+
+  const uiSchema = {
+    request: {"ui:field": "asyncTypeahead",
+      "asyncTypeahead": {
+        "url": "http://192.168.56.1:4000/api/v/specimen?select={id:1}",
+        isLoading: true,
+        search: (url, query) => dispatch(requestAutoComplete(url, query)),
+        labelKey: "_id",
+        options: []
+      }      
+    }    
+  };
+
+*/
+  let optionsAutocomplete = "[]";
+  
+  /*
+  function search (url, query){ return fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
+          .then(resp => resp.json())
+          .then(json => optionsAutocomplete = json);
+  };
+  */
+
+
+  function search (url, query){ return fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
+          .then(resp => resp.json())
+          .then(json => optionsAutocomplete = json);
+  };
+
+
+
+
+/*
+
+  const uiSchema = {
+    request: {"ui:field": "asyncTypeahead",
+      "asyncTypeahead": {
+        "url": "http://192.168.56.1:4000/api/v/specimen?select=id",
+        isLoading: false,
+        options : optionsAutocomplete,
+        labelKey: "_id"
+      }      
+    }    
+  };
+*/
+
+  let uiSchema = require('../../ui/'+result[1]+".json");
+
+  
+
+
+  //uiSchema["request"]["asyncTypeahead"]["search"] = search;
+
+  //uiSchema["request"]["asyncTypeahead"]["search"] = search;
+
+  function addSearch(uiSchema, search){    
+    console.log(uiSchema);
+    let keys = Object.keys(uiSchema);
+    for (var i = 0; i < keys.length; i++) {
+      console.log(keys[i]);
+      console.log("***********************")
+      let keysProperties = Object.keys(uiSchema[keys[i]]);
+      console.log(keysProperties);
+      for (var j = 0; j < keysProperties.length; j++) {
+        console.log("*************************************")
+        console.log(keysProperties[j]);
+        console.log(uiSchema[keys[i].toString()][keysProperties[j]]);
+        if ( keysProperties[j] === "asyncTypeahead" ) {
+          uiSchema[keys[i]][keysProperties[j]]["search"] = search;
+        }
+      }
+    }
+    console.log("*****************************************************")
+    console.log(uiSchema);
+  }
+  
+  addSearch(uiSchema, search);
 
   function Tpl(props) {
     const {id, label, required, children} = props;
@@ -226,18 +317,24 @@ const uiSchema = {
     }
   }
 
+/*
 
-const fields = {
-    layout_grid: LayoutField,
-    geo: GeoPosition,
-    asyncTypeahead: AsyncTypeaheadField
+  class MyAutocomplete extends AsyncTypeaheadField{
+    constructor(props) {
+      super(props);
+      let param = {};
+      param[props.isLoading]=false;
+      this.state = param;
+    }
+
+  };
+
+
+  const fields = {
+      asyncTypeahead: pepe
    }
 
 
-
-
-
-/*
   const fields = {
     layout_grid: LayoutField,
     geo: GeoPosition,
@@ -252,12 +349,20 @@ const fields = {
            onFieldChange: onFieldChange
   };
 
+
+
+  const fields = {
+    asyncTypeahead: AsyncTypeaheadField  ,
+   }
+
 */
+
+
   return (
     <div className="container">    
       <Form schema={schemaForm}
               uiSchema={uiSchema}
-              FieldTemplate={CustomFieldTemplate}
+              //FieldTemplate={CustomFieldTemplate}
               fields={fields}
               onChange={onChange}
               onSubmit={onSubmit}

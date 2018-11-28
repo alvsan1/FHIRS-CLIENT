@@ -6,7 +6,9 @@ import {
   VisibilityFilters,
   TEXT_REQUEST,
   REQUEST_POSTS,
-  TO_TEXT
+  TO_TEXT,
+  RESPONSE_AUTOCOMPLETE,
+  REQUEST_AUTOCOMPLETE
 } from './actions'
 
 const { SHOW_ALL } = VisibilityFilters
@@ -92,12 +94,43 @@ function toText(state = [], action ){
 
 }
 
+
+function requestAutoComplete( state = [], action ){
+  switch (action.type) {
+    case REQUEST_AUTOCOMPLETE:
+      console.log( action );
+      console.log(state);
+      return state
+    default:
+      return state
+  }
+}
+
+
+function responseAutoComplete(state = [], action ){
+  switch (action.type) {
+    case RESPONSE_AUTOCOMPLETE:
+      console.log(' Estoy responseAutoComplete!!! ');
+      console.log( action );
+      console.log(' Estoy responseAutoComplete!!! ');      
+      //state.text = action.text
+
+      console.log(state);
+      return { ...state, options: JSON.stringify(action.options)}
+    default:
+      return state
+  }
+}
+
+
 const todoApp = combineReducers({
   visibilityFilter,
   todos,
   textRequest,
   requestPosts,
-  toText
+  toText,
+  requestAutoComplete,
+  responseAutoComplete
 })
 
 export default todoApp

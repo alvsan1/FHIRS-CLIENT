@@ -11,6 +11,8 @@ export const TO_TEXT = 'TO_TEXT'
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const RESPONSE_AUTOCOMPLETE = 'RESPONSE_AUTOCOMPLETE'
+export const REQUEST_AUTOCOMPLETE = 'REQUESTAUTOCOMPLETE'
 
 
 /*
@@ -41,13 +43,6 @@ export function setVisibilityFilter(filter) {
 
 
 
-export function requestPosts(text) {
-  return {
-    type: REQUEST_POSTS,
-    text
-  }
-}
-
 //function receivePosts(subreddit, json) {
 //  return {
 //    type: RECEIVE_POSTS,
@@ -77,4 +72,35 @@ export function textRequest(concept, text) {
 		    })
 	}
 		//return {type : TEXT_REQUEST,  text }  
+}
+
+
+export function requestPosts(text) {
+  return {
+    type: REQUEST_POSTS,
+    text
+  }
+}
+
+
+export function requestAutoComplete(url, query){
+	return (dispatch) => {
+		return fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
+          .then(resp => resp.json())
+          .then(json =>  dispatch(responseAutoComplete(json)));
+    }
+}
+
+
+export function responseAutoComplete(options){
+	return {
+    type: RESPONSE_AUTOCOMPLETE,
+    options    
+  }
+}
+
+
+
+export function autoCompleteRequest(){
+	
 }
