@@ -4,10 +4,16 @@ import { render } from 'react-dom'
 import Form from "react-jsonschema-form";
 //import { AsyncTypeaheadField } from "react-jsonschema-form-extras/lib/TypeaheadField";
 import { textRequest, requestAutoComplete} from '../actions';
-import fetch from 'cross-fetch'
+//import fetch from 'cross-fetch'
 import LayoutField from "react-jsonschema-form-layout-grid";
 //import {asyncTypeahead} from "react-jsonschema-form-extras";
 import fields from "react-jsonschema-form-extras";
+
+import applyRules from 'react-jsonschema-form-conditionals';
+import Engine from 'json-rules-engine-simplified';
+
+
+
 //import { getConceptSchema } from '../util/Transformers';
 
 const log = (type) => console.log.bind(console, type);
@@ -59,7 +65,7 @@ let prueba = request('http://192.168.56.1:3000/definitions/Specimen.json', funct
 
   //const onChange = ({name}) => {console.log(name)};
 
-  const onChange = ({name,formData}) => {
+  const onChange = ({name,uiSchema, formData}) => {
       /*var newValue = getValue(event, multiple);
         _onChange(processValue(schema, newValue));
           if (schema.element_onChange) {  // N.B: my addition is this if and call of element_onChange
@@ -75,6 +81,7 @@ let prueba = request('http://192.168.56.1:3000/definitions/Specimen.json', funct
 
     console.log(formData);
     console.log(name);
+    console.log(uiSchema);    
   } 
 
 /*
@@ -195,15 +202,14 @@ const uiSchema = {
   */
 
 
-  function search (url, query){ return fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
-          .then(resp => resp.json())
-          .then(json => optionsAutocomplete = json);
+  
+
+
+  /*function urlAssign () {
+      console.log(this);
+      return "http://192.168.56.1:4000/api/v/"+"?select=id";
   };
 
-
-
-
-/*
 
   const uiSchema = {
     request: {"ui:field": "asyncTypeahead",
@@ -219,14 +225,25 @@ const uiSchema = {
 
   let uiSchema = require('../../ui/'+result[1]+".json");
 
-  
+
+  function searchConcept (url, query){ return fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
+          .then(resp => resp.json())
+          .then(json => optionsAutocomplete = json);
+  };
+
+  //let urlAssign = "http://192.168.56.1:4000/api/v/"++"?select=id";
+  function onChangeDynamic(e){
+    console.log("Siiiiiiiii");
+  }
+  //{name,formData}
 
 
+  //let onChangeDynamic = { (event) => conosle.log(e)}
   //uiSchema["request"]["asyncTypeahead"]["search"] = search;
 
   //uiSchema["request"]["asyncTypeahead"]["search"] = search;
 
-  function addSearch(uiSchema, search){    
+  function addSearch(schemaForm, uiSchema, searchConcept){    
     console.log(uiSchema);
     let keys = Object.keys(uiSchema);
     for (var i = 0; i < keys.length; i++) {
@@ -236,10 +253,23 @@ const uiSchema = {
       console.log(keysProperties);
       for (var j = 0; j < keysProperties.length; j++) {
         console.log("*************************************")
-        console.log(keysProperties[j]);
-        console.log(uiSchema[keys[i].toString()][keysProperties[j]]);
+        //console.log(keysProperties[j]);
+        //console.log(uiSchema[keys[i].toString()][keysProperties[j]]);        
         if ( keysProperties[j] === "asyncTypeahead" ) {
-          uiSchema[keys[i]][keysProperties[j]]["search"] = search;
+          uiSchema[keys[i]][keysProperties[j]]["search"] = searchConcept;
+          //if (uiSchema[keys[i]][keysProperties[j]]["onChange"] != undefined){
+            //console.log("***********Dynamic*******************");
+            //console.log(schemaForm);
+            //schemaForm["properties"][uiSchema[keys[i]][keysProperties[j]]["onChange"]]["onChange"] = onChangeDynamic;
+            //console.log(schemaForm);
+            /*if ( uiSchema[uiSchema[keys[i]][keysProperties[j]]["onChange"]] == undefined ){
+                let param = {onChange: onChangeDynamic}
+                uiSchema[uiSchema[keys[i]][keysProperties[j]]["onChange"]] = param;
+            }else{
+              uiSchema[uiSchema[keys[i]][keysProperties[j]]["onChange"]]["onChange"] = onChangeDynamic;
+            }*/
+            //console.log(uiSchema);
+          //}
         }
       }
     }
@@ -247,7 +277,7 @@ const uiSchema = {
     console.log(uiSchema);
   }
   
-  addSearch(uiSchema, search);
+  addSearch(schemaForm, uiSchema, searchConcept);
 
   function Tpl(props) {
     const {id, label, required, children} = props;
@@ -290,85 +320,132 @@ const uiSchema = {
 // Define a custom component for handling the root position object
 
 
-  class GeoPosition extends React.Component {
-    constructor(props) {
-      super(props);
-      let param = {};
-      param[props.name]=0;
-      this.state = param;
+  //class GeoPosition extends React.Component {
+//    constructor(props) {
+//      super(props);
+//      let param = {};
+//      param[props.name]=0;
+//      this.state = param;
+//    }//
+
+//    onChange(name) {
+//      console.log(name);
+//      return (event) => {
+//        this.setState({
+//          [name]: parseFloat(event.target.value)
+//        }, () => this.props.onChange(this.state)); 
+//      };
+//    }//
+
+//    render() {
+//      const {id} = this.state;
+//      return (
+//        <div>
+//          <input id={this.props.name} type="string" value={id} onChange={this.onChange(this.props.name)} />
+//        </div>
+//      );
+//    }
+//  }
+
+
+
+//   class MyAutocomplete extends AsyncTypeaheadField{
+    //constructor(props) {
+      //super(props);
+      //let param = {};
+      //param[props.isLoading]=false;
+      //this.state = param;
+    //}
+//
+  //};
+//
+//
+  //const fields = {
+      //asyncTypeahead: pepe
+   //}
+//
+//
+  //const fields = {
+    //layout_grid: LayoutField,
+    //geo: GeoPosition,
+//    
+   //}
+//
+  //const onFieldChange = (name, formData) => {
+        //console.log(name);
+  //}
+//
+  //const formContext = {
+           //onFieldChange: onFieldChange
+  //};
+//
+//
+//
+  //const fields = {
+    //asyncTypeahead: AsyncTypeaheadField  ,
+   //}
+
+
+  //const MyCustomWidget = (props) => {
+  //return (
+    //<input type="text"
+      //className="custom"
+      //value={props.value}
+      //required={props.required}
+      //onChange={(event) => console.log(this)} />
+    //);
+  //};
+//
+  //const widgets = {
+    //myCustomWidget: MyCustomWidget
+  //};
+//
+//
+  //return (
+    //<div className="container">    
+      //<Form schema={schemaForm}
+              //uiSchema={uiSchema}
+              ////FieldTemplate={CustomFieldTemplate}
+              //fields={fields}
+              ////widgets={widgets}
+              //onChange={onChange}
+              //onSubmit={onSubmit}
+              //onError={log("errors")} id="ConceptsSchema"/>
+    //</div>
+  //)
+
+
+  const rules = [{
+    conditions: {
+      dynamicModelType: { is: "Substance" }
+    },
+    event: {
+      type: "uiAppend",
+      params: {
+        "subject": {
+          "asyncTypeahead": {
+            "url": "http://192.168.56.1:4000/api/v/substance?select=id",
+          }
+        }
+      }
     }
+  }];
 
-    onChange(name) {
-      console.log(name);
-      return (event) => {
-        this.setState({
-          [name]: parseFloat(event.target.value)
-        }, () => this.props.onChange(this.state)); 
-      };
-    }
+let FormWithConditionals = applyRules(schemaForm, uiSchema, rules, Engine)(Form);
 
-    render() {
-      const {id} = this.state;
-      return (
-        <div>
-          <input id={this.props.name} type="string" value={id} onChange={this.onChange(this.props.name)} />
-        </div>
-      );
-    }
-  }
-
-/*
-
-  class MyAutocomplete extends AsyncTypeaheadField{
-    constructor(props) {
-      super(props);
-      let param = {};
-      param[props.isLoading]=false;
-      this.state = param;
-    }
-
-  };
-
-
-  const fields = {
-      asyncTypeahead: pepe
-   }
-
-
-  const fields = {
-    layout_grid: LayoutField,
-    geo: GeoPosition,
-    
-   }
-
-  const onFieldChange = (name, formData) => {
-        console.log(name);
-  }
-
-  const formContext = {
-           onFieldChange: onFieldChange
-  };
+return (
+  <div className="container">
+    <FormWithConditionals 
+      fields={fields}
+      onChange={onChange}
+      onSubmit={onSubmit}
+    />
+  </div>
+);
 
 
 
-  const fields = {
-    asyncTypeahead: AsyncTypeaheadField  ,
-   }
 
-*/
-
-
-  return (
-    <div className="container">    
-      <Form schema={schemaForm}
-              uiSchema={uiSchema}
-              //FieldTemplate={CustomFieldTemplate}
-              fields={fields}
-              onChange={onChange}
-              onSubmit={onSubmit}
-              onError={log("errors")} id="ConceptsSchema"/>
-    </div>
-  )
 };
 
 
