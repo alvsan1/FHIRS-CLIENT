@@ -436,21 +436,37 @@ var ruleForm = require('../../rules/'+result[1]+".json");
     //}
   //}];
 
-const rules = [ruleForm]
 
-let FormWithConditionals = applyRules(schemaForm, uiSchema, rules, Engine)(Form);
+if (  Object.keys(ruleForm).length === 0 ){
+  return (
+    <div className="container">    
+      <Form schema={schemaForm}
+              uiSchema={uiSchema}
+              //FieldTemplate={CustomFieldTemplate}
+              fields={fields}
+              //widgets={widgets}
+              onChange={onChange}
+              onSubmit={onSubmit}
+              onError={log("errors")} id="ConceptsSchema"/>
+    </div>
+  );
 
-return (
-  <div className="container">
-    <FormWithConditionals 
-      fields={fields}
-      onChange={onChange}
-      onSubmit={onSubmit}
-    />
-  </div>
-);
+}else{
+  const rules = [ruleForm]
 
+  let FormWithConditionals = applyRules(schemaForm, uiSchema, rules, Engine)(Form);
 
+  return (
+    <div className="container">
+      <FormWithConditionals 
+        fields={fields}
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />
+    </div>
+  );
+
+}
 
 
 };
