@@ -415,21 +415,28 @@ const uiSchema = {
   //)
 
 
-  const rules = [{
-    conditions: {
-      dynamicModelType: { is: "Substance" }
-    },
-    event: {
-      type: "uiAppend",
-      params: {
-        "subject": {
-          "asyncTypeahead": {
-            "url": "http://192.168.56.1:4000/api/v/substance?select=id",
-          }
-        }
-      }
-    }
-  }];
+  
+
+
+var ruleForm = require('../../rules/'+result[1]+".json");
+
+//const rules = [{
+    //conditions: {
+      //dynamicModelType: { is: "Substance" }
+    //},
+    //event: {
+      //type: "uiAppend",
+      //params: {
+        //"subject": {
+          //"asyncTypeahead": {
+            //"url": "http://192.168.56.1:4000/api/v/substance?select=id",
+          //}
+        //}
+      //}
+    //}
+  //}];
+
+const rules = [ruleForm]
 
 let FormWithConditionals = applyRules(schemaForm, uiSchema, rules, Engine)(Form);
 
