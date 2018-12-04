@@ -1,17 +1,1 @@
-{
-  "conditions": {
-    "dynamicModelType": {
-      "is": "Substance"
-    }
-  },
-  "event": {
-    "type": "uiAppend",
-    "params": {
-      "subject": {
-        "asyncTypeahead": {
-          "url": "http://192.168.56.1:4000/api/v/substance?select=id"
-        }
-      }
-    }
-  }
-}
+[{"conditions":{"dynamicModelType":{"is":"Patient"}},"event":{"type":"uiAppend","params":{"subject":{"asyncTypeahead":{"url":"http://192.168.56.1:4000/api/v/patient?select=id"}}}}},{"conditions":{"dynamicModelType":{"is":"Group"}},"event":{"type":"uiAppend","params":{"subject":{"asyncTypeahead":{"url":"http://192.168.56.1:4000/api/v/group?select=id"}}}}},{"conditions":{"dynamicModelType":{"is":"Device"}},"event":{"type":"uiAppend","params":{"subject":{"asyncTypeahead":{"url":"http://192.168.56.1:4000/api/v/device?select=id"}}}}},{"conditions":{"dynamicModelType":{"is":"Substance"}},"event":{"type":"uiAppend","params":{"subject":{"asyncTypeahead":{"url":"http://192.168.56.1:4000/api/v/substance?select=id"}}}}}]

@@ -36,7 +36,11 @@ const SchemaForm = ({ text , dispatch }) => {
   console.log(jsonSchema.default);
   console.log("***********jsonSchema********");
   */
-  var schemaForm = require('../../definitions/'+result[1]+".json");
+  let schemaForm = require('../../definitions/'+result[1]+".json");
+  let uiSchema = require('../../ui/'+result[1]+".json");
+  let ruleForm = require('../../rules/'+result[1]+".json");
+  //console.log(ruleForm);
+  //let ruleForm = JSON.stringify(require('../../rules/'+result[1]+".json"));
 /*let schemaForm = {
     title: "Todo",    
     type: "object",
@@ -223,7 +227,7 @@ const uiSchema = {
   };
 */
 
-  let uiSchema = require('../../ui/'+result[1]+".json");
+  
 
 
   function searchConcept (url, query){ return fetch(url+'?query={"id":{"$regex":"^('+query+')"}')
@@ -418,7 +422,7 @@ const uiSchema = {
   
 
 
-var ruleForm = require('../../rules/'+result[1]+".json");
+
 
 //const rules = [{
     //conditions: {
@@ -435,9 +439,8 @@ var ruleForm = require('../../rules/'+result[1]+".json");
       //}
     //}
   //}];
-
-
-if (  Object.keys(ruleForm).length === 0 ){
+console.log(ruleForm.length);
+if ( ruleForm.length == 0 ){
   return (
     <div className="container">    
       <Form schema={schemaForm}
@@ -452,9 +455,8 @@ if (  Object.keys(ruleForm).length === 0 ){
   );
 
 }else{
-  const rules = [ruleForm]
-
-  let FormWithConditionals = applyRules(schemaForm, uiSchema, rules, Engine)(Form);
+  console.log(ruleForm);
+  let FormWithConditionals = applyRules(schemaForm, uiSchema, ruleForm, Engine)(Form);
 
   return (
     <div className="container">
