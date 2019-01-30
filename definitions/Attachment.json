@@ -1,0 +1,1 @@
+{"properties":{"contentType":{"type":"string"},"language":{"type":"string"},"title":{"type":"string"},"creation":{"type":"string","format":"date-time"}},"title":"Attachment","type":"object"}

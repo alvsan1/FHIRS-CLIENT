@@ -36,6 +36,7 @@ const SchemaForm = ({ text , dispatch }) => {
   console.log(jsonSchema.default);
   console.log("***********jsonSchema********");
   */
+
   let schemaForm = require('../../definitions/'+result[1]+".json");
   let uiSchema = require('../../ui/'+result[1]+".json");
   let ruleForm = require('../../rules/'+result[1]+".json");
@@ -250,12 +251,14 @@ const uiSchema = {
   function addSearch(schemaForm, uiSchema, searchConcept){    
     console.log(uiSchema);
     let keys = Object.keys(uiSchema);
-    for (var i = 0; i < keys.length; i++) {
+    for ( var i = 0; i < keys.length; i++ ) {
       console.log(keys[i]);
       console.log("***********************")
+      
       let keysProperties = Object.keys(uiSchema[keys[i]]);
       console.log(keysProperties);
-      for (var j = 0; j < keysProperties.length; j++) {
+      
+      for ( var j = 0; j < keysProperties.length; j++ ) {
         console.log("*************************************")
         //console.log(keysProperties[j]);
         //console.log(uiSchema[keys[i].toString()][keysProperties[j]]);        

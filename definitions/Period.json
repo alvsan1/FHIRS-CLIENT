@@ -1,1 +1,1 @@
-{"properties":{"start":{"type":"string","format":"date"},"end":{"type":"string","format":"date"}},"title":"Period","type":"object"}
+{"properties":{"start":{"type":"string","format":"date-time"},"end":{"type":"string","format":"date-time"}},"title":"Period","type":"object"}
