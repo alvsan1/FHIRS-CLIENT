@@ -53,11 +53,12 @@ export function setVisibilityFilter(filter) {
 //}
 
 export function textRequest(concept, text) {	
+	console.log(JSON.stringify(text));
 	return (dispatch,getstate) => { 
 		//////////////////////////////////////////////
 		/////   Parameter ////////////////////////////
 		//////////////////////////////////////////////
-		return fetch('http://192.168.0.105:4000/api/v/'+concept, {
+		return fetch('http://192.168.0.109:4000/api/v/'+concept, {
 		      method: 'post',
 			  headers: {
 			    'Accept': 'application/json, text/plain, */*',

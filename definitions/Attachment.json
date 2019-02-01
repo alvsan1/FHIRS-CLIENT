@@ -1,1 +1,1 @@
-{"properties":{"contentType":{"type":"string"},"language":{"type":"string"},"title":{"type":"string"},"creation":{"type":"string","format":"date-time"}},"title":"Attachment","type":"object"}
+{"properties":{"contentType":{"type":"string"},"language":{"type":"string"},"data":{"type":"string","format":"data-url","title":"data"},"size":{"type":"number"},"hash":{"type":"string","format":"data-url","title":"hash"},"title":{"type":"string"},"creation":{"type":"string","format":"date-time"}},"title":"Attachment","type":"object"}

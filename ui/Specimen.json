@@ -1,1 +1,1 @@
-{}
+{"request":{"items":{"ui:field":"asyncTypeahead","asyncTypeahead":{"url":"http://192.168.0.109:4000/api/v/procedureRequest?select=id","isLoading":false,"labelKey":"_id","mapping":"_id"}}}}
