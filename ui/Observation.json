@@ -1,0 +1,1 @@
+{"basedOn":{"ui:field":"asyncTypeahead","asyncTypeahead":{"isLoading":false,"labelKey":"_id","mapping":"_id"}},"partOf":{"ui:field":"asyncTypeahead","asyncTypeahead":{"isLoading":false,"labelKey":"_id","mapping":"_id"}},"subject":{"ui:field":"asyncTypeahead","asyncTypeahead":{"isLoading":false,"labelKey":"_id","mapping":"_id"}}}

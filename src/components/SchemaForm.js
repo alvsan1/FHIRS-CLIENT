@@ -40,6 +40,9 @@ const SchemaForm = ({ text , dispatch }) => {
   let schemaForm = require('../../definitions/'+result[1]+".json");
   let uiSchema = require('../../ui/'+result[1]+".json");
   let ruleForm = require('../../rules/'+result[1]+".json");
+
+
+  
   //console.log(ruleForm);
   //let ruleForm = JSON.stringify(require('../../rules/'+result[1]+".json"));
 /*let schemaForm = {
@@ -65,7 +68,7 @@ let prueba = request('http://192.168.56.1:3000/definitions/Specimen.json', funct
 })
 */
    
-  const onSubmit = ({formData}) => {dispatch(textRequest(result[1],formData)); console.log("dsf")};
+  const onSubmit = ({formData}) => {console.log(formData);dispatch(textRequest(result[1],formData))};
 
 
   //const onChange = ({name}) => {console.log(name)};
@@ -84,9 +87,9 @@ let prueba = request('http://192.168.56.1:3000/definitions/Specimen.json', funct
         //formData.userId = this.getUserIdByName(formData.name);
         //this.setState({ formData }); // I want this only upon name change
 
-    console.log(formData);
-    console.log(name);
-    console.log(uiSchema);    
+    //console.log(formData);
+    //console.log(name);
+    //console.log(uiSchema);    
   } 
 
 /*

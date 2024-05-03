@@ -1,1 +1,1 @@
-{"properties":{"value":{"type":"number"},"comparator":{"type":"string","enum":["<","<=",">=","> - how to understand the value"]},"unit":{"type":"string"},"code":{"type":"string"}},"title":"Quantity","type":"object"}
+{"properties":{"value":{"type":"number"},"comparator":{"type":"string","enum":["<","<=",">=","> - how to understand the value"]},"unit":{"type":"string"},"system":{"type":"string"},"code":{"type":"string"}},"title":"Quantity","type":"object"}

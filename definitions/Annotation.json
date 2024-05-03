@@ -1,1 +1,1 @@
-{"properties":{"time":{"type":"string","format":"date-time"},"text":{"type":"string"}},"title":"Annotation","type":"object"}
+{"properties":{"authorString":{"type":"string"},"time":{"type":"string","format":"date-time"},"text":{"type":"string"}},"title":"Annotation","type":"object"}
