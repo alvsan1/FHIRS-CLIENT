@@ -1,0 +1,1 @@
+{"properties":{"url":{"type":"string","enum":["latitude","longitude"]},"valueDecimal":{"type":"number"}},"title":"GeoUbication","type":"object"}

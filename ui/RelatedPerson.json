@@ -1,0 +1,1 @@
+{"patient":{"ui:field":"asyncTypeahead","asyncTypeahead":{"url":"http://192.168.1.134:4000/api/v/patient?select=id","isLoading":false,"labelKey":"_id","mapping":"_id"}},"communication":{"items":{}}}
